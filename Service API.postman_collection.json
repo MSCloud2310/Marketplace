@@ -1,0 +1,671 @@
+{
+	"info": {
+		"_postman_id": "fa72e44f-89e2-4da4-a1c7-fa9c49c8efb7",
+		"name": "Service API",
+		"description": "API endpoints for managing services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20026755"
+	},
+	"item": [
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "Get All Services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/services/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments by service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/services/1/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services",
+								"1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transport",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/transports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transports"
+							]
+						},
+						"description": "Obtener un transporte por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "get by serviceid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/transports/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transports",
+								"3"
+							]
+						},
+						"description": "Obtener un transporte por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "add transport service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Transporte\",\n    \"providerid\": 1,\n    \"description\": \"This is an example service.\",\n    \"price\": 19.99,\n    \"state\": true,\n    \"address\": \"123 Main St\",\n    \"city\": \"Anytown\",\n    \"country\": \"USA\",\n    \"phone\": 123457890,\n    \"image\": \"https://example.com/image.jpg\",\n    \"departure_time\": \"2023-03-25\",\n    \"type\": \"terrestre\",\n    \"arrival_time\": \"2023-04-23\",\n    \"route\": \"Nueva York - Los Ángeles\",\n    \"capacity\": 100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/transports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transports"
+							]
+						},
+						"description": "Agregar un nuevo transporte"
+					},
+					"response": []
+				},
+				{
+					"name": "update transport service",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"departure_time\": \"2023-03-25\",\n    \"type\": \"perro\",\n    \"arrival_time\": \"2023-04-23\",\n    \"route\": \"Nueva York - Los Ángeles\",\n    \"capacity\": 100\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/transports/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transports",
+								"1"
+							]
+						},
+						"description": "Actualizar un transporte existente por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "delete transport service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/transports/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transports",
+								"5"
+							]
+						},
+						"description": "Eliminar un transporte existente por su ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alimentation",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alimentation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alimentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by serviceid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alimentation/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alimentation",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create alimentation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Que hpta pereza\",\n    \"description\": \"This is an example service.\",\n      \"providerid\": 1,\n    \"price\": 19.99,\n    \"state\": true,\n    \"address\": \"123 Main St\",\n    \"city\": \"Anytown\",\n    \"country\": \"USA\",\n    \"phone\": 123457890,\n    \"image\": \"https://example.com/image.jpg\",\n    \"type\": \"Buffet\",\n    \"buffet\": true,\n    \"bar\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/alimentation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alimentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update transport service Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5,\n    \"name\": \"Que hpta pereza\",\n    \"description\": \"This is an example service.\",\n    \"price\": 19.99,\n    \"state\": true,\n    \"address\": \"123 Main St\",\n    \"city\": \"Anytown\",\n    \"country\": \"USA\",\n    \"phone\": 123457891,\n    \"image\": \"https://example.com/image.jpg\",\n    \"type\": \"Buffet\",\n    \"buffet\": true,\n    \"bar\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/alimentation/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alimentation",
+								"6"
+							]
+						},
+						"description": "Actualizar un transporte existente por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/alimentation/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alimentation",
+								"6"
+							]
+						},
+						"description": "Eliminar un transporte existente por su ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tourism",
+			"item": [
+				{
+					"name": "Get all tourism",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tourism",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tourism"
+							]
+						},
+						"description": "Get all tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Get tourism by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tourism/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tourism",
+								"6"
+							]
+						},
+						"description": "Get tourism by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update tourism",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"Mountain climbing\",\n    \"duration\": 15,\n    \"additional_info\": \"Climbing equipment and guide included\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tourism/12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tourism",
+								"12"
+							]
+						},
+						"description": "Update tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Create tourism",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Turismo \",\n    \"description\": \"This is an example service.\",\n      \"providerid\": 1,\n    \"price\": 19.99,\n    \"state\": true,\n    \"address\": \"123 Main St\",\n    \"city\": \"Anytown\",\n    \"country\": \"USA\",\n    \"phone\": 123457890,\n    \"image\": \"https://example.com/image.jpg\",\n    \"type\": \"Mountain climbing\",\n    \"duration\": 7,\n    \"additional_info\": \"Climbing equipment included\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tourism",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tourism"
+							]
+						},
+						"description": "Create tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete tourism",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tourism/12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tourism",
+								"12"
+							]
+						},
+						"description": "Delete tourism"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lodging",
+			"item": [
+				{
+					"name": "Get all lodgings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lodging",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lodging"
+							]
+						},
+						"description": "Get all tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Get lodging by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lodging/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lodging",
+								"6"
+							]
+						},
+						"description": "Get tourism by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update lodging",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rooms\": 3,\n    \"chef\": false,\n    \"parking\": true,\n    \"laundry\": false,\n    \"pet_friendly\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/lodging/19",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lodging",
+								"19"
+							]
+						},
+						"description": "Update tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Create lodging",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mi hospedaje\",\n    \"description\": \"Un lugar acogedor para pasar tus vacaciones\",\n      \"providerid\": 1,\n    \"price\": 200.0,\n    \"state\": true,\n    \"address\": \"Calle 123 # 45-67\",\n    \"city\": \"Bogotá\",\n    \"country\": \"Colombia\",\n    \"phone\": 123456390,\n    \"image\": \"https://example.com/image.png\",\n    \"rooms\": 3,\n    \"chef\": true,\n    \"parking\": true,\n    \"laundry\": false,\n    \"pet_friendly\": true\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/lodging",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lodging"
+							]
+						},
+						"description": "Create tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lodging/18",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lodging",
+								"18"
+							]
+						},
+						"description": "Delete tourism"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comment"
+							]
+						},
+						"description": "Get all tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comment/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comment",
+								"1"
+							]
+						},
+						"description": "Get tourism by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rate\": 5,\n    \"description\": \"El mejor servicio\",\n    \"service\": {\n        \"id\": 1\n    }\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/comment/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comment",
+								"2"
+							]
+						},
+						"description": "Update tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rate\": 1,\n    \"description\": \"Asco\",\n    \"clientid\": 2,\n    \"serviceid\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/comment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comment"
+							]
+						},
+						"description": "Create tourism"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comment/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comment",
+								"1"
+							]
+						},
+						"description": "Delete tourism"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

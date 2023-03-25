@@ -1,0 +1,95 @@
+version: "3.6"
+networks:
+  workshop:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+          gateway: 172.30.0.1
+services:
+  # BASES DE DATOS
+  dbServices:
+    container_name: dbServices
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    networks:
+      workshop:
+        ipv4_address: 172.30.0.2
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: services
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dbAuth:
+    container_name: dbAuth
+    image: mariadb:latest
+    ports:
+      - "3307:3306"
+    networks:
+      workshop:
+        ipv4_address: 172.30.0.3
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: auth
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ------------------------------------
+  serviceMS:
+    container_name: serviceMS
+    image: eclipse-temurin:17-jdk-alpine
+    working_dir: /app/
+    restart: always
+    volumes:
+      - ./services/target/services-0.0.1-SNAPSHOT.jar:/app/services.jar
+    depends_on:
+      dbServices:
+        condition: service_healthy
+    ports:
+      - "9000:9000"
+    command: java -jar services.jar --server.port=9000 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.2:3306/services
+    networks:
+      workshop:
+        ipv4_address: 172.30.0.4
+  # ---------------------------------------------
+  contentsMS:
+    container_name: contentsMS
+    image: eclipse-temurin:17-jdk-alpine
+    working_dir: /app/
+    restart: always
+    volumes:
+      - ./contentsMS/target/contenidos-0.0.1-SNAPSHOT.jar:/app/contentsMS.jar
+    depends_on:
+      dbServices:
+        condition: service_healthy
+    ports:
+      - "9001:9001"
+    command: java -jar contentsMS.jar --server.port=9001 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.2:3306/services
+    networks:
+      workshop:
+        ipv4_address: 172.30.0.5
+    # ------------------------------------
+  usersMS:
+    container_name: usersMS
+    image: eclipse-temurin:17-jdk-alpine
+    working_dir: /app/
+    restart: always
+    volumes:
+      - ./userManagment/target/userManagment-0.0.1-SNAPSHOT.jar:/app/usersMS.jar
+    depends_on:
+      dbAuth:
+        condition: service_healthy
+    ports:
+      - "9002:9002"
+    command: java -jar usersMS.jar --server.port=9002 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.3:3306/auth
+    networks:
+      workshop:
+        ipv4_address: 172.30.0.6
