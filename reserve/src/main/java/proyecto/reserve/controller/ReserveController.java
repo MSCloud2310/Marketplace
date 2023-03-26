@@ -1,6 +1,10 @@
 package proyecto.reserve.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,17 +14,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.io.IOException;
-
+@Configuration
+@PropertySource("classpath:application.properties")
 @RestController
 @RequestMapping("/reserve")
 public class ReserveController {
     @Autowired
     private ReserveService reserveService;
+    @Autowired
+    Environment env;
     @PostMapping
     public ResponseEntity<ReserveRest> createReserve(@RequestBody ReserveRest reserve) {
         OkHttpClient ok = new OkHttpClient();
-        String urlservice = "http://localhost:8080/services/"+reserve.getIdService();
-        String urluser = "http://localhost:9001/user/client/"+reserve.getIdUser();
+        String urlservice = env.getProperty("urlService")+reserve.getIdService();
+        String urluser = env.getProperty("urlClient")+reserve.getIdUser();
         System.out.println(" llego "+ urluser);
         Request request = new Request.Builder()
                 .url(urlservice)
