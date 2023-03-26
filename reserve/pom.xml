@@ -69,6 +69,8 @@
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>
 		</dependency>
+
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
