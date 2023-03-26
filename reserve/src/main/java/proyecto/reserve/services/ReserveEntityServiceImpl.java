@@ -3,7 +3,6 @@ package proyecto.reserve.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import proyecto.reserve.entities.ReserveRest;
-import proyecto.reserve.repository.ReserveRepository;
 import proyecto.reserve.repository.ReserveRepositoryRest;
 
 import javax.transaction.Transactional;
