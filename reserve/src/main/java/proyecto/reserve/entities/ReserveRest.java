@@ -27,4 +27,10 @@ public class ReserveRest implements Serializable {
     private Date finishDate;
     @Column
     private Date hour;
+    @Column
+    private boolean estado;
+    @Column
+    private Integer numeroTarjeta;
+    @Column
+    private Integer claveTarjeta;
 }

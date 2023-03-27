@@ -1,15 +1,15 @@
-package com.javeriana.ms.contenidos;
+package com.javeriana.userManagment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
 @EnableDiscoveryClient
-public class ContenidosApplication {
+@SpringBootApplication
+public class UserManagmentApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(ContenidosApplication.class, args);
-  }
+	public static void main(String[] args) {
+		SpringApplication.run(UserManagmentApplication.class, args);
+	}
 
 }

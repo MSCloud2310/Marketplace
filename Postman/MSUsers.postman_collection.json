@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "724022d4-27ce-4872-af3f-ba399d932130",
+		"name": "MSUsers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15970065"
+	},
+	"item": [
+		{
+			"name": "createProvider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"Seban50\",\r\n    \"password\" : \"123789\",\r\n    \"name\": \"Sestian\",\r\n    \"lastName\": \"Heera\",\r\n    \"age\" : 21,\r\n    \"photoUrl\": \"www.photo.com\",\r\n    \"phone\": \"1325gre92\",\r\n    \"webPage\": \"ww.wbPgergageom\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/provider",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createClient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"Sebastian5015\",\r\n    \"password\" : \"123456789\",\r\n    \"name\": \"Sebastian\",\r\n    \"lastName\": \"Herrera\",\r\n    \"age\" : 21,\r\n    \"photoUrl\": \"www.photo.com\",\r\n    \"cedula\": \"1001055368\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/client",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSocialNetwork",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Instahr{op{}am50\",\r\n    \"userName\": \"Hehtrhrtrñora205\",\r\n    \"url\": \"www.insgram\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/provider/2/socialNetworks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"2",
+						"socialNetworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/client/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"client",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProviderById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/provider/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSocialNetworksByProviderId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/provider/1/socialNetworks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"1",
+						"socialNetworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditClient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"username\": \"Sebastian5015\",\r\n    \"password\": \"123456789\",\r\n    \"name\": \"Sebastian\",\r\n    \"lastName\": \"Herrera\",\r\n    \"age\": 21,\r\n    \"photoUrl\": \"www.photo.com\",\r\n    \"cedula\": \"1001055368\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/client/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditProvider",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"username\" : \"Sebastian5015\",\r\n    \"password\" : \"123456789\",\r\n    \"name\": \"Sebastian\",\r\n    \"lastName\": \"Herrera\",\r\n    \"age\" : 21,\r\n    \"photoUrl\": \"www.photo.com\",\r\n    \"phone\": \"3132549792\",\r\n    \"webPage\": \"www.webPage.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/provider/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditSocialNetwork",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"Fachrte\",\r\n    \"userName\": \"Herhrta5\",\r\n    \"url\": \"www.fachrthok5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/provider/1/socialNetworks/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"1",
+						"socialNetworks",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteClientById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/client/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProviderById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/provider/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteSocialNetworkById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/provider/1/socialNetworks/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"provider",
+						"1",
+						"socialNetworks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
