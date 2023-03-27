@@ -7,36 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "getReserve",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<soap:Envolve xmlns:soap=\" http://schemas.xmlsoap.org/soap/envelope/\">\r\n    <soap:Body>\r\n        <getCountryRequest xmls=\"http://www.example.com/demo/entities\">\r\n            <name>US</name>\r\n        </getCountryRequest>\r\n    </soap:Body>\r\n</soap:Envolve>",
-					"options": {
-						"raw": {
-							"language": "xml"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9099/ws/countires.wsdl/ws",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9099",
-					"path": [
-						"ws",
-						"countires.wsdl",
-						"ws"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getServicesById",
 			"request": {
 				"method": "GET",
