@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "2c59c441-10e4-4d1a-a59a-7161fc72ad0d",
+		"name": "MS contenidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23150637"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/contents",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"providerID\":1,\r\n    \"title\":\"noticia 1\",\r\n    \"type\": \"NEWS\",\r\n    \"description\":\"noticia numero 1\",\r\n    \"data\":\"la noticia es noticia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/contents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/contents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/contents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/contents/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/contents/provider/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contents",
+						"provider",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/contents/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/contents/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contents",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
