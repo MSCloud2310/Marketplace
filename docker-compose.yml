@@ -41,7 +41,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-
+  # --------EUREKAAAAAAAA_---------------
+  eureka:
+    container_name: eureka
+    image: eclipse-temurin:17-jdk-alpine
+    volumes:
+      - ./eurekaserver/target/eurekaserver-0.0.1-SNAPSHOT.jar:/app/eureka.jar
+    working_dir: /app/
+    ports:
+      - "8761:8761"
+    command: java -jar eureka.jar --server.port=8761
+    networks:
+      workshop:
+        ipv4_address: 172.30.0.10
   # ------------------------------------
   serviceMS:
     container_name: serviceMS
@@ -55,7 +67,7 @@ services:
         condition: service_healthy
     ports:
       - "9000:9000"
-    command: java -jar services.jar --server.port=9000 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.2:3306/services
+    command: java -jar services.jar --registry.host=172.30.0.10 --server.port=9000 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.2:3306/services
     networks:
       workshop:
         ipv4_address: 172.30.0.4
@@ -72,7 +84,7 @@ services:
         condition: service_healthy
     ports:
       - "9001:9001"
-    command: java -jar contentsMS.jar --server.port=9001 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.2:3306/services
+    command: java -jar contentsMS.jar --registry.host=172.30.0.10 --server.port=9001 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.2:3306/services
     networks:
       workshop:
         ipv4_address: 172.30.0.5
@@ -89,7 +101,7 @@ services:
         condition: service_healthy
     ports:
       - "9002:9002"
-    command: java -jar usersMS.jar --server.port=9002 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.3:3306/auth
+    command: java -jar usersMS.jar --server.port=9002  --registry.host=172.30.0.4 --spring.datasource.password=root  --spring.datasource.username=root  --spring.datasource.url=jdbc:mariadb://172.30.0.3:3306/auth
     networks:
       workshop:
         ipv4_address: 172.30.0.6
