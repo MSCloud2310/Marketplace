@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/")
 public class ServiceController {
 
     @Autowired
