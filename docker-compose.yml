@@ -1,15 +1,6 @@
 networks:
   workshop:
 services:
-  # eureka:
-  #   container_name: eureka
-  #   ports:
-  #     - "8761:8761"
-  #   build:
-  #     context: ./eurekaserver/
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - workshop
   dbservices:
     container_name: dbServices
     build: ./db/
@@ -29,7 +20,6 @@ services:
     container_name: serviceMS
     restart: always
     environment:
-      - REGISTRY_HOST=eureka
       - DATA_SOURCE_URL=jdbc:mariadb://dbservices:3306/services
       - SERVER_PORT=9000
     build: ./services/
@@ -42,7 +32,6 @@ services:
     container_name: contentsMS
     restart: always
     environment:
-      - REGISTRY_HOST=eureka
       - DATA_SOURCE_URL=jdbc:mariadb://dbservices:3306/services
       - SERVER_PORT=9001
     build: ./contentsMS/
@@ -55,7 +44,6 @@ services:
     container_name: usersMS
     restart: always
     environment:
-      - REGISTRY_HOST=eureka
       - DATA_SOURCE_URL=jdbc:mariadb://dbauth:3306/auth
       - SERVER_PORT=9002
     build: ./userManagment/
@@ -68,7 +56,6 @@ services:
     container_name: reserveMS
     restart: always
     environment:
-      - REGISTRY_HOST=eureka
       - DATA_SOURCE_URL=jdbc:mariadb://dbservices:3306/services
       - SERVER_PORT=9003
       - URL_SERVICE=http://servicems:9000/services/
@@ -77,5 +64,18 @@ services:
     depends_on:
       dbservices:
         condition: service_healthy
+    networks:
+      - workshop
+  gateway:
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - SERVICES_URL=http://servicems:9000
+      - CONTENTS_URL=http://contentsms:9001
+      - USERS_URL=http://usersms:9002
+      - RESERVES_URL=http://reservems:9003
+    build: ./gateway/
     networks:
       - workshop

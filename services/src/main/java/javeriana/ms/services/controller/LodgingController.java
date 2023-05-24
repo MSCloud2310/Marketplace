@@ -19,7 +19,7 @@ import javeriana.ms.services.model.Lodging;
 import javeriana.ms.services.services.LodgingService;
 
 @RestController
-@RequestMapping("/lodging")
+@RequestMapping("services/lodging")
 public class LodgingController {
 
     @Autowired
