@@ -66,8 +66,6 @@ public class AlimentationService {
             alimentation.setCurrencies(currency);
             String continent = String.valueOf(jsonNode.get(0).get("continents"));
             alimentation.setContinents(continent);
-            String flag = String.valueOf(jsonNode.get(0).get("flags"));
-            alimentation.setFlags(flag);
             String postalCode = String.valueOf(jsonNode.get(0).get("postalCode"));
             alimentation.setPostalCode(postalCode);
 

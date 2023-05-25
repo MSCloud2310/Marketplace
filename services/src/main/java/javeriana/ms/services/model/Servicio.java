@@ -57,8 +57,6 @@ public class Servicio {
     private String currencies;
     @Column(name = "continents", nullable = false)
     private String continents;
-    @Column(name = "flags", nullable = false)
-    private String flags;
     @Column(name = "postalCode", nullable = false)
     private String postalCode;
     @Column(name = "capital", nullable = false)
