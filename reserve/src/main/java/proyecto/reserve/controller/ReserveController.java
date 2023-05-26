@@ -66,6 +66,7 @@ public class ReserveController {
                 }
                 reserveService.addReserve(reserve);
                 if (verificar == true) {
+                    
                     return ResponseEntity.status(HttpStatus.CREATED).body("Pago realizado correctamente de la reserva ");
                 }
                 return ResponseEntity.status(HttpStatus.CREATED).body("Pago NO realizado de la reserva ");
@@ -129,6 +130,12 @@ public class ReserveController {
             }
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/{longitud}/{latitud}/{startDate}/{endDate}")
+    public String reporteDelClima(@PathVariable double longitud,@PathVariable double latitud,
+                                @PathVariable String startDate,@PathVariable String endDate) throws IOException {
+
+        return reserveService.getWeatherReport(latitud,longitud,startDate, endDate);
     }
 
     @DeleteMapping("/{id}")
