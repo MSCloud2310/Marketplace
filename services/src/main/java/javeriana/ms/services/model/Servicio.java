@@ -53,6 +53,14 @@ public class Servicio {
 
     @Column(name = "image", nullable = false)
     private String image;
+    @Column(name = "currencies", nullable = false)
+    private String currencies;
+    @Column(name = "continents", nullable = false)
+    private String continents;
+    @Column(name = "postalCode", nullable = false)
+    private String postalCode;
+    @Column(name = "capital", nullable = false)
+    private String capital;
 
     // getters and setters
 }

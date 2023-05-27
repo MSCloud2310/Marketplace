@@ -28,6 +28,8 @@ public class Transport extends Servicio {
 
     @Column(name = "capacity",nullable = false)
     private Integer capacity;
+    @Column(name = "geolocation",nullable = false)
+    private String geolocation;
 
     // constructor, getters, and setters
 }
