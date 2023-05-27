@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.com/demo/entities"
+            targetNamespace="http://www.example.com/demo/entities" elementFormDefault="qualified">
+
+    <xsd:element name="getReserveRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getReserveResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="reserve" type="tns:reserve"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="reserve">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:int"/>
+            <xsd:element name="userID" type="xsd:int"/>
+            <xsd:element name="idService" type="xsd:int"/>
+            <xsd:element name="startDate" type="xsd:date"/>
+            <xsd:element name="finishDate" type="xsd:date"/>
+            <xsd:element name="hour" type="xsd:time"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
