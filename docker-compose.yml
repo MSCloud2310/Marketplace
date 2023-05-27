@@ -3,7 +3,6 @@ networks:
 services:
   servicems:
     container_name: serviceMS
-    restart: always
     env_file:
         - ./.env
     environment:
@@ -13,7 +12,6 @@ services:
       - workshop
   contentsms:
     container_name: contentsMS
-    restart: always
     env_file:
         - ./.env
     environment:
@@ -23,7 +21,6 @@ services:
       - workshop
   usersms:
     container_name: usersMS
-    restart: always
     env_file:
       - ./.env
     environment:
@@ -34,7 +31,6 @@ services:
       - workshop
   reservems:
     container_name: reserveMS
-    restart: always
     env_file:
       - ./.env
     environment:
@@ -48,7 +44,6 @@ services:
     container_name: gateway
     ports:
       - "8080:8080"
-    restart: always
     environment:
       - SERVICES_URL=http://servicems:9000
       - CONTENTS_URL=http://contentsms:9001
