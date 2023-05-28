@@ -36,7 +36,7 @@ services:
     environment:
       - SERVER_PORT=9003
       - URL_SERVICE=http://servicems:9000/services/
-      - URL_CLIENT=http://userms:9002/user/client/
+      - URL_CLIENT=http://usersms:9002/user/client/
     build: ./reserve/
     networks:
       - workshop

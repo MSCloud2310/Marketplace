@@ -22,14 +22,15 @@ public class Transport extends Servicio {
     private String type;
     @Column(name = "arrival_time",nullable = false)
     private Date arrival_time;
-
-    @Column(name = "route",nullable = false)
-    private String route;
-
+    @Column(name = "pickup_location",nullable = false)
+    private String pickup_location;
+    @Column(name = "destination",nullable = false)
+    private String destination;
+    @Column(name ="route_url")
+    private String route_url;
     @Column(name = "capacity",nullable = false)
     private Integer capacity;
-    @Column(name = "geolocation",nullable = false)
-    private String geolocation;
+
 
     // constructor, getters, and setters
 }

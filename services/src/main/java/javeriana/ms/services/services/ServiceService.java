@@ -1,12 +1,17 @@
 package javeriana.ms.services.services;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import javeriana.ms.services.model.Servicio;
 import javeriana.ms.services.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.lang.reflect.Field;
+
+import java.util.*;
 
 @Service
 public class ServiceService {
@@ -27,6 +32,7 @@ public class ServiceService {
         return serviceRepository.save(service);
     }
 
+
     public Servicio updateService(Long id, Servicio service) {
         Servicio existingService = serviceRepository.findById(id).orElse(null);
         if (existingService != null) {
@@ -34,7 +40,6 @@ public class ServiceService {
             existingService.setDescription(service.getDescription());
             existingService.setPrice(service.getPrice());
             existingService.setState(service.getState());
-            existingService.setAddress(service.getAddress());
             existingService.setCity(service.getCity());
             existingService.setCountry(service.getCountry());
             existingService.setPhone(service.getPhone());

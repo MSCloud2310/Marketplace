@@ -21,10 +21,12 @@ public class Lodging extends Servicio {
     private boolean chef;
     @Column(name = "parking")
     private boolean parking;
-
+    @Column(name = "lodging_name")
+    private String lodging_name;
     @Column(name = "laundry")
     private boolean laundry;
-
+    @Column(name ="map_point")
+    private String map_point;
     @Column(name = "pet_friendly")
     private boolean pet_friendly;
 }

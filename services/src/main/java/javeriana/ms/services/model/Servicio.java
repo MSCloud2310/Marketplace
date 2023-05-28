@@ -22,8 +22,6 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @Column(name = "providerid", nullable = false)
     private Long providerid;
 
@@ -39,28 +37,28 @@ public class Servicio {
     @Column(name = "state", nullable = false)
     private Boolean state;
 
-    @Column(name = "address", nullable = false)
-    private String address;
-
     @Column(name = "city", nullable = false)
     private String city;
 
     @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "phone", nullable = false, unique = true)
+    @Column(name = "phone", nullable = false)
     private Integer phone;
 
     @Column(name = "image", nullable = false)
     private String image;
+
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
     @Column(name = "currencies", nullable = false)
     private String currencies;
-    @Column(name = "continents", nullable = false)
-    private String continents;
-    @Column(name = "postalCode", nullable = false)
-    private String postalCode;
     @Column(name = "capital", nullable = false)
     private String capital;
+    @Column(name = "region", nullable = false)
+    private String region;
 
     // getters and setters
 }

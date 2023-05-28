@@ -1,8 +1,9 @@
 package javeriana.ms.services.controller;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javeriana.ms.services.model.Lodging;
 import javeriana.ms.services.services.LodgingService;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("services/lodging")

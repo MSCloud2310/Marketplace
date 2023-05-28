@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
 @RestController
 @RequestMapping("services/tourism")
@@ -20,6 +22,7 @@ public class TourismController {
     public List<Tourism> getAllTourism() {
         return tourismService.getAllTourism();
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Tourism> getTourismById(@PathVariable("id") Long id) {

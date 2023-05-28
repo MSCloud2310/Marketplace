@@ -5,14 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javeriana.ms.services.model.Tourism;
 import javeriana.ms.services.repository.TourismRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TourismService {
@@ -29,54 +33,27 @@ public class TourismService {
     }
 
     public Tourism createTourism(Tourism tourism) {
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = "https://restcountries.com/v3.1/name/";
+        String requestUrl = apiUrl + tourism.getCountry();
+        System.out.println("REQ:" + requestUrl);
         try {
-            String nombrePais = tourism.getCountry();
-            String informacionPais = obtenerInformacionPais(nombrePais);
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(informacionPais);
-
-            // Obtener la ciudad
-            String capital = String.valueOf(jsonNode.get(0).get("capital"));
-            tourism.setCapital(capital);
-            String currency = String.valueOf(jsonNode.get(0).get("currencies"));
-            tourism.setCurrencies(currency);
-            String continent = String.valueOf(jsonNode.get(0).get("continents"));
-            tourism.setContinents(continent);
-            String postalCode = String.valueOf(jsonNode.get(0).get("postalCode"));
-            tourism.setPostalCode(postalCode);
-
-            // Agregar la información recibida del país al servicio
-            return tourismRepository.save(tourism);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-       return null;
-    }
-    private String obtenerInformacionPais(String nombrePais) throws IOException {
-        String apiUrl = "https://restcountries.com/v3.1/name/" + nombrePais;
-        URL url = new URL(apiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            StringBuilder response = new StringBuilder();
-
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
+            ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(requestUrl, Object[].class);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                Object[] object = responseEntity.getBody();
+                Map<String, Object> responseMap = (Map<String, Object>) object[0];
+                ArrayList<Double> a = (ArrayList<Double>) responseMap.get("latlng");
+                ArrayList<String> capital = (ArrayList<String>) responseMap.get("capital");
+                tourism.setCurrencies(responseMap.get("currencies").toString());
+                tourism.setRegion(responseMap.get("region").toString());
+                tourism.setLatitude(a.get(0));
+                tourism.setLongitude(a.get(1));
+                tourism.setCapital(capital.get(0));
             }
-            reader.close();
-
-            return response.toString();
-        } else {
-            // Manejar el caso de error en la solicitud
-            throw new IOException("Error en la solicitud. Código de respuesta: " + responseCode);
+        } catch (Exception e) {
+            System.out.print(e.toString());
         }
+        return tourismRepository.save(tourism);
     }
 
     public Tourism updateTourism(Long id, Tourism tourism) {
