@@ -35,15 +35,7 @@ public class CommentService {
     }
 
     public Comment updateComment(Long id, Comment comment) {
-        Comment commentToUpdate = getCommentById(id);
-
-        if (commentToUpdate == null) {
-            return null;
-        }
-        commentToUpdate.setRate(comment.getRate());
-        commentToUpdate.setDescription(comment.getDescription());
-        commentToUpdate.setServiceid(comment.getServiceid());
-        return commentRepository.save(commentToUpdate);
+        return commentRepository.save(comment);
     }
 
     public boolean deleteComment(Long id) {

@@ -109,14 +109,13 @@ public class TransportService {
     public Transport updateTransport(Long id, Transport transport) {
         Optional<Transport> t = transportRepository.findById(id);
         if (t.isPresent()) {
-            Transport update = t.get();
-            update.setDeparture_time(transport.getDeparture_time());
-            update.setType(transport.getType());
-            update.setArrival_time(transport.getArrival_time());
-            update.setDestination(transport.getDestination());
-            update.setPickup_location(transport.getPickup_location());
-            update.setCapacity(transport.getCapacity());
-            transportRepository.save(update);
+            Transport tmp = t.get();
+            transport.setCurrencies(tmp.getCurrencies());
+            transport.setLatitude(tmp.getLatitude());
+            transport.setLongitude(tmp.getLongitude());
+            transport.setRegion(tmp.getRegion());
+            transport.setCapital(tmp.getCapital());
+            transportRepository.save(transport);
             return transport;
         }
         return null;

@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,7 +40,6 @@ public class AlimentationService {
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://restcountries.com/v3.1/name/";
         String requestUrl = apiUrl + alimentation.getCountry();
-        System.out.println("REQ:" + requestUrl);
         try {
             ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(requestUrl, Object[].class);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
@@ -59,8 +59,18 @@ public class AlimentationService {
         alimentationRepository.save(alimentation);
     }
 
-    public void updateAlimentation(Long id, Alimentation alimentation) {
-        alimentationRepository.save(alimentation);
+    public Alimentation updateAlimentation(Long id, Alimentation alimentation) {
+        Optional<Alimentation> optionalAlimentation = alimentationRepository.findById(id);
+        if (optionalAlimentation.isPresent()) {
+            Alimentation tmp = optionalAlimentation.get();
+            alimentation.setCurrencies(tmp.getCurrencies());
+            alimentation.setLatitude(tmp.getLatitude());
+            alimentation.setLongitude(tmp.getLongitude());
+            alimentation.setRegion(tmp.getRegion());
+            alimentation.setCapital(tmp.getCapital());
+            return alimentationRepository.save(alimentation);
+        }
+        return null;
 
     }
 

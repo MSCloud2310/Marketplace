@@ -25,8 +25,8 @@ public class AlimentationController {
     @PutMapping("/{id}")
     public ResponseEntity<Alimentation> updateAlimentation(@PathVariable Long id, @RequestBody Alimentation alimentation) {
         if (alimentationService.getAlimentationById(id) != null) {
-            alimentationService.updateAlimentation(id, alimentation);
-            return new ResponseEntity<>(alimentation, HttpStatus.OK);
+            Alimentation tmp = alimentationService.updateAlimentation(id, alimentation);
+            return new ResponseEntity<>(tmp, HttpStatus.OK);
         }
         return new ResponseEntity<>(alimentation, HttpStatus.NOT_FOUND);
     }

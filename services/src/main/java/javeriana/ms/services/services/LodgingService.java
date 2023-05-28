@@ -83,12 +83,18 @@ public class LodgingService {
     public Lodging updateLodging(Long id, Lodging lodging) {
         Optional<Lodging> optionalLodging = lodgingRepository.findById(id);
         if (optionalLodging.isPresent()) {
+            Lodging tmp = optionalLodging.get();
             Lodging lodgingToUpdate = optionalLodging.get();
             lodgingToUpdate.setRooms(lodging.getRooms());
             lodgingToUpdate.setChef(lodging.isChef());
             lodgingToUpdate.setParking(lodging.isParking());
             lodgingToUpdate.setLaundry(lodging.isLaundry());
             lodgingToUpdate.setPet_friendly(lodging.isPet_friendly());
+            lodgingToUpdate.setCurrencies(tmp.getCurrencies());
+            lodgingToUpdate.setLatitude(tmp.getLatitude());
+            lodgingToUpdate.setLongitude(tmp.getLongitude());
+            lodgingToUpdate.setRegion(tmp.getRegion());
+            lodgingToUpdate.setCapital(tmp.getCapital());
             return lodgingRepository.save(lodging);
         } else {
             return null;

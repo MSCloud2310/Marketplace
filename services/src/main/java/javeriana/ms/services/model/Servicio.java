@@ -48,16 +48,15 @@ public class Servicio {
 
     @Column(name = "image", nullable = false)
     private String image;
-
-    @Column(name = "latitude", nullable = false)
+    @Column(name = "latitude", nullable = true)
     private Double latitude;
-    @Column(name = "longitude", nullable = false)
+    @Column(name = "longitude", nullable = true)
     private Double longitude;
-    @Column(name = "currencies", nullable = false)
+    @Column(name = "currencies", nullable = true)
     private String currencies;
-    @Column(name = "capital", nullable = false)
+    @Column(name = "capital", nullable = true)
     private String capital;
-    @Column(name = "region", nullable = false)
+    @Column(name = "region", nullable = true)
     private String region;
 
     // getters and setters

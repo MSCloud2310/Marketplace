@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class TourismService {
@@ -57,14 +58,17 @@ public class TourismService {
     }
 
     public Tourism updateTourism(Long id, Tourism tourism) {
-        Tourism existingTourism = tourismRepository.findById(id).orElse(null);
-        if (existingTourism == null) {
-            return null;
+        Optional<Tourism> existingTourism = tourismRepository.findById(id);
+        if (existingTourism.isPresent()) {
+            Tourism tmp = existingTourism.get();
+            tourism.setCurrencies(tmp.getCurrencies());
+            tourism.setLatitude(tmp.getLatitude());
+            tourism.setLongitude(tmp.getLongitude());
+            tourism.setRegion(tmp.getRegion());
+            tourism.setCapital(tmp.getCapital());
+            return tourismRepository.save(tourism);
         }
-        existingTourism.setType(tourism.getType());
-        existingTourism.setDuration(tourism.getDuration());
-        existingTourism.setAdditional_info(tourism.getAdditional_info());
-        return tourismRepository.save(existingTourism);
+        return null;
     }
 
     public void deleteTourism(Long id) {
