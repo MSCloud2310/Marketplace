@@ -3,6 +3,9 @@ package com.javeriana.userManagment.security;
 import java.util.Collections;
 import java.util.Date;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import com.javeriana.userManagment.model.AuthResponse;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -43,6 +46,17 @@ public class TokenUtils {
             
             return null; 
         }
+    }
+
+    public static String validateToken(String token) {
+        String email =  Jwts.parserBuilder()
+                    .setSigningKey(ACCESS_TOKEN_SECRET.getBytes())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+
+        return email;
     }
     
 }

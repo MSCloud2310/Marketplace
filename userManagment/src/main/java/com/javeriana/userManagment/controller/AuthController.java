@@ -3,9 +3,11 @@ package com.javeriana.userManagment.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.javeriana.userManagment.model.AuthResponse;
 import com.javeriana.userManagment.model.Client;
@@ -27,7 +29,6 @@ public class AuthController {
         return ResponseEntity.ok(clientCreated);
     }
 
-
     //REGISTER PROVIDER
     @PostMapping("/register/provider")
     public ResponseEntity<?> postProvider(@RequestBody Provider provider){
@@ -36,4 +37,9 @@ public class AuthController {
         return ResponseEntity.ok(providerCreated);
     }
 
+    //VALIDATE TOKEN
+    @GetMapping("/validateToken")
+    public AuthResponse validateToken(@RequestParam String token){
+        return userService.validateToken(token);
+    }
 }

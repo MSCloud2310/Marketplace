@@ -5,27 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.Base64;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import com.javeriana.userManagment.model.AuthResponse;
 import com.javeriana.userManagment.model.Client;
 import com.javeriana.userManagment.model.Provider;
 import com.javeriana.userManagment.model.SocialNetwork;
+import com.javeriana.userManagment.model.User;
 import com.javeriana.userManagment.repository.ClientRepository;
 import com.javeriana.userManagment.repository.ProviderRepository;
 import com.javeriana.userManagment.repository.SocialNetworkRepository;
 import com.javeriana.userManagment.security.TokenUtils;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -44,48 +35,6 @@ public class UserService {
   @Autowired
   @Lazy
   AuthenticationManager authenticationManager;
-
-  private static final String ALGORITHM = "AES";
-  private static final String KEY = "keyEncriptation";
-  
-/*
-  //LOGIN USER - CLIENT
-  public AuthResponse authUserClient(AuthRequest auth) {
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            auth.getUsername(),
-            auth.getPassword()
-        )
-    );
-
-    Optional<Client> client = clientRepository.findByEmail(auth.getUsername());
-    if (client.isPresent()) {
-        var jwtToken = jwtService.generateToken(client.get());
-        return AuthResponse.builder().token(jwtToken).build();
-    }
-
-    return null;
-  }
-
-
-  //LOGIN USER - PROVIDER
-  public AuthResponse authUserProvider(AuthRequest auth) {
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            auth.getUsername(),
-            auth.getPassword()
-        )
-    );
-
-    Optional<Provider> provider = providerRepository.findByEmail(auth.getUsername());
-    if (provider.isPresent()) {
-        var jwtToken = jwtService.generateToken(provider.get());
-        return AuthResponse.builder().token(jwtToken).build();
-    }
-
-    return null;
-  }
- */
 
   //REGISTER USER - CLIENT
   public AuthResponse createClientUser(Client client) {
@@ -114,24 +63,38 @@ public class UserService {
         return null;
     }
 
-    String password = provider.getPassword();
-    String encryptPassword = encrypt(password);
+    provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword())); 
+    Long providerTemp = providerRepository.save(provider).getId();
+    Optional<Provider> providerCreated = providerRepository.findById(providerTemp);
 
-    if (encryptPassword != null) {
-        provider.setPassword(encryptPassword);
-        Long providerTemp = providerRepository.save(provider).getId();
-        Optional<Provider> providerCreated = providerRepository.findById(providerTemp);
-
-        if (providerCreated.isPresent()) {
-            var jwtToken = TokenUtils.createToken(providerCreated.get().getEmail());
-            return AuthResponse.builder().token(jwtToken).build();
-        }
+    if (providerCreated.isPresent()) {
+        var jwtToken = TokenUtils.createToken(providerCreated.get().getEmail());
+        return AuthResponse.builder().token(jwtToken).build();
     }
 
     return null;
   }
 
+  //VALIDATE TOKEN
+  public AuthResponse validateToken(String token){
+    String email = TokenUtils.validateToken(token);
 
+    if(this.getClientByEmail(email).isPresent()){
+        User userOptional = this.getClientByEmail(email).get();
+        return new AuthResponse(TokenUtils.createToken(userOptional.getEmail()));
+    }
+
+    else if(this.getProviderByEmail(email).isPresent()){
+        User userOptional = this.getProviderByEmail(email).get();
+        return new AuthResponse(TokenUtils.createToken(userOptional.getEmail()));
+    }
+    
+    else {
+        throw new UsernameNotFoundException("Usuario no encontrado");
+    }
+  }
+
+  //GET USER BY ID
   public Client getClientUser(Long id) {
       Optional<Client> client = clientRepository.findById(id);
 
@@ -152,6 +115,7 @@ public class UserService {
       return null;
   }
 
+  //GET SOCIAL NETWORK BY ID
   public List<SocialNetwork> getSocialNetworksByProviderId(Long id) {
       Optional<Provider> provider = providerRepository.findById(id);
 
@@ -162,8 +126,9 @@ public class UserService {
       return null;
   }
 
+  //UPDATE USER
   public Client updateClientUser(Client client) {
-      Optional<Client> clientTemp = clientRepository.findById(client.getId());
+      /*Optional<Client> clientTemp = clientRepository.findById(client.getId());
 
       if (clientTemp.isPresent()) {
           String password = client.getPassword();
@@ -179,12 +144,12 @@ public class UserService {
               }
           }
       }
-
+*/
       return null;
   }
 
   public Provider updateProviderUser(Provider provider) {
-      Optional<Provider> providerTemp = providerRepository.findById(provider.getId());
+    /* Optional<Provider> providerTemp = providerRepository.findById(provider.getId());
 
       if (providerTemp.isPresent()) {
           String password = provider.getPassword();
@@ -200,10 +165,12 @@ public class UserService {
               }
           }
       }
-
+ */ 
       return null;
   }
 
+
+  //GET USER BY EMAIL
   public Optional<Client> getClientByEmail(String username) {
       return clientRepository.findByEmail(username);
   }
@@ -212,6 +179,8 @@ public class UserService {
       return providerRepository.findByEmail(username);
   }
 
+
+  //DETELE USER
   public boolean deleteClient(Long id) {
       Optional<Client> client = clientRepository.findById(id);
 
@@ -233,46 +202,4 @@ public class UserService {
 
       return false;
   }
-
-  public static SecretKey generateKey() throws Exception {
-      KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
-      SecureRandom secureRandom = new SecureRandom();
-      keyGenerator.init(128, secureRandom);
-      return keyGenerator.generateKey();
-  }
-
-  public static SecretKeySpec getSecretKeySpec() throws Exception {
-      byte[] key = KEY.getBytes(StandardCharsets.UTF_8);
-      MessageDigest sha = MessageDigest.getInstance("SHA-256");
-      key = sha.digest(key);
-      key = Arrays.copyOf(key, 16);
-      return new SecretKeySpec(key, ALGORITHM);
-  }
-
-  public SecretKeySpec crearClave() {
-      try {
-          byte[] cadena = KEY.getBytes("UTF-8");
-          MessageDigest md = MessageDigest.getInstance("SHA-1");
-          cadena = md.digest(cadena);
-          cadena = Arrays.copyOf(cadena, 16);
-          SecretKeySpec sc = new SecretKeySpec(cadena, ALGORITHM);
-          return sc;
-      } catch (Exception e) {
-          return null;
-      }
-  }
-
-  public String encrypt(String password) {
-      try {
-          SecretKeySpec sc = crearClave();
-          Cipher cipher = Cipher.getInstance(ALGORITHM);
-          cipher.init(Cipher.ENCRYPT_MODE, sc);
-          byte[] cadena = password.getBytes("UTF-8");
-          byte[] candenaEncriptada = cipher.doFinal(cadena);
-          return Base64.getEncoder().encodeToString(candenaEncriptada);
-      } catch (Exception e) {
-          return null;
-      }
-  }
-
 }
