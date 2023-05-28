@@ -1,5 +1,6 @@
 package com.javeriana.userManagment.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
@@ -8,10 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "providers")
+@EqualsAndHashCode(callSuper=true)
 public class Provider extends User{
 
     @Column(unique = true)
@@ -28,11 +31,11 @@ public class Provider extends User{
 
     }
 
-    public Provider(String username, String password, String name, String lastName, Integer age, String photoUrl, String phone, String webPage, List<SocialNetwork> socialNetworks) {
-        super(username, password, name, lastName, age, photoUrl);
+    public Provider(String username, String password, String firstName, String lastName, Integer age, Role role, String photoUrl, String phone, String webPage, List<SocialNetwork> socialNetworks) {
+        super(username, password, firstName, lastName, age, role, photoUrl);
         this.phone = phone;
         this.webPage = webPage;
-        this.socialNetworks = socialNetworks;
+        this.socialNetworks = new ArrayList<SocialNetwork>();
     }
 
 }

@@ -7,6 +7,6 @@ import com.javeriana.userManagment.model.Client;
 
 public interface ClientRepository extends CrudRepository<Client, Long>{
     
-    Optional<Client> findByUsername(String username);
+    Optional<Client> findByEmail(String email);
     
 }
