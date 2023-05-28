@@ -7,6 +7,6 @@ import com.javeriana.userManagment.model.Provider;
 
 public interface ProviderRepository extends CrudRepository<Provider, Long>{
     
-    Optional<Provider> findByUsername(String username);
+    Optional<Provider> findByEmail(String email);
     
 }

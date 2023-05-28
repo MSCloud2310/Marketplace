@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.javeriana.userManagment.model.Auth;
 import com.javeriana.userManagment.model.Client;
 import com.javeriana.userManagment.model.Provider;
 import com.javeriana.userManagment.model.SocialNetwork;
@@ -30,38 +29,30 @@ public class UserController {
     @Autowired
     SocialNetworkService socialNetService;
 
-    
-    @PostMapping("/client/auth")
-    public ResponseEntity<?> authUserClient(@RequestBody Auth auth){
-
-        if(auth != null){
-            Client client = userService.authUserClient(auth);
-
-            if(client == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Las credenciales no corresponden a ninguna cuenta");
-
+    //GET USER BY EMAIL
+    @GetMapping("/client")
+    public ResponseEntity<?> getUserByEmail(@RequestParam String email){
+        
+        if(userService.getClientByEmail(email).isPresent()){
+            Client client = userService.getClientByEmail(email).get();
             return ResponseEntity.ok(client);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Las credenciales no corresponden a ninguna cuenta");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No fue encontrado el usuario con el email " + email);
     }
 
-    @PostMapping("/provider/auth")
-    public ResponseEntity<?> authUserProvider(@RequestBody Auth auth){
-
-        if(auth != null){
-            Provider provider = userService.authUserProvider(auth);
-
-            if(provider == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Las credenciales no corresponden a ninguna cuenta");
-
+    @GetMapping("/provider")
+    public ResponseEntity<?> getProviderByEmail(@RequestParam String email){
+        
+        if(userService.getProviderByEmail(email).isPresent()){
+            Provider provider = userService.getProviderByEmail(email).get();
             return ResponseEntity.ok(provider);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Las credenciales no corresponden a ninguna cuenta");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No fue encontrado el usuario con el email " + email);
     }
 
-
+    //GET USER BY ID
     @GetMapping("/client/{id}") 
     public ResponseEntity<?> getUser(@PathVariable("id") Long id){
         Client client = userService.getClientUser(id);
@@ -82,6 +73,7 @@ public class UserController {
         return ResponseEntity.ok(provider);
     }
 
+    //GET SOCIAL NETWORKS
     @GetMapping("/provider/{id}/socialNetworks")
     public ResponseEntity<?> getSocialNetworks(@PathVariable("id") Long id){
         List<SocialNetwork> socialNets = userService.getSocialNetworksByProviderId(id);
@@ -92,6 +84,7 @@ public class UserController {
         return ResponseEntity.ok(socialNets);
     }
 
+    //GET SOCIAL NETWORK BY ID
     @GetMapping("/provider/{id}/socialNetworks/{idS}")
     public ResponseEntity<?> getSocialNetwork(@PathVariable("idS") Long id){
         SocialNetwork socialNetwork = socialNetService.getSocialNetwork(id);
@@ -102,26 +95,7 @@ public class UserController {
         return ResponseEntity.ok(socialNetwork);
     }
 
-    @PostMapping("/client")
-    public ResponseEntity<?> postUser(@RequestBody Client client){
-        Client clientTemp = userService.createClientUser(client);
-        
-        if(clientTemp == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el usuario");
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientTemp);
-    }
-
-    @PostMapping("/provider")
-    public ResponseEntity<?> postProvider(@RequestBody Provider provider){
-        Provider providerTemp = userService.createProviderUser(provider);
-        
-        if(providerTemp == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el usuario");
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(providerTemp);
-    }
-
+    //CREATE SOCIAL NETWORK
     @PostMapping("/provider/{id}/socialNetworks")
     public ResponseEntity<?> postSocialNetwork(@RequestBody SocialNetwork socialNetwork, @PathVariable("id") Long id){
         SocialNetwork socialNetworkTemp = socialNetService.createSocialNetwork(socialNetwork, id);
@@ -132,6 +106,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(socialNetworkTemp);
     }
 
+    //UPDATE USER
     @PutMapping("/client/{id}")
     public ResponseEntity<?> putUser(@RequestBody Client client, @PathVariable("id") Long id){
         Client clientTemp = userService.updateClientUser(client);
@@ -152,7 +127,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(providerTemp);
     }
 
-    //Validar usuario y enviarle el provedor para relacionarlo
+    //UPDATE SOCIAL NETWORK 
     @PutMapping("/provider/{id}/socialNetworks/{idS}")
     public ResponseEntity<?> putSocialNetwork(@RequestBody SocialNetwork socialNetwork, @PathVariable("id") Long id){
         SocialNetwork socialNetworkTemp = socialNetService.updateSocialNetwork(socialNetwork, id);
@@ -163,6 +138,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(socialNetworkTemp);
     }
 
+    //DELETE USER
     @DeleteMapping("/client/{id}")
     public ResponseEntity<?> deleteClient(@PathVariable("id") Long id){
         Boolean response = userService.deleteClient(id);
@@ -183,6 +159,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado con exito");
     }
 
+    //DELETE SOCIAL NETWORK
     @DeleteMapping("/provider/{id}/socialNetworks/{idS}")
     public ResponseEntity<?> deleteSocialNetwork(@PathVariable("idS") Long id){
         Boolean socialNetworkTemp = socialNetService.deleteSocialNetwork(id);
