@@ -48,7 +48,7 @@ public class ReserveController {
       try (Response responseUser = ok.newCall(requestUser).execute()) {
         // Verificar que la respuesta sea exitosa
         if (!responseUser.isSuccessful()) {
-          throw new IOException("Código de respuesta inesperado: " + response);
+          throw new IOException("Código de respuesta inesperado: " + responseUser);
         }
 
         // Obtener el cuerpo de la respuesta como una cadena JSON

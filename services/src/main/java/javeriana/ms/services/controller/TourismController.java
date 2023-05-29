@@ -40,8 +40,8 @@ public class TourismController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
-                tourism.setId(Long.valueOf(data.get(2)));
+            if (data.get(1).equals("ROLE_PROVIDER")) {
+                tourism.setProviderid(Long.valueOf(data.get(2)));
                 Tourism createdTourism = tourismService.createTourism(tourism);
                 return new ResponseEntity<>(createdTourism, HttpStatus.CREATED);
             } else return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -55,7 +55,7 @@ public class TourismController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Tourism updatedTourism = tourismService.updateTourism(id, tourism);
                 if (updatedTourism == null) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,7 +72,7 @@ public class TourismController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 tourismService.deleteTourism(id);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else return new ResponseEntity<>(HttpStatus.FORBIDDEN);

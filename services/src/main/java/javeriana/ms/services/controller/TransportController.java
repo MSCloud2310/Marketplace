@@ -30,7 +30,7 @@ public class TransportController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Transport t = transportService.updateTransport(id, transport);
                 if (t != null)
                     return new ResponseEntity<>(t, HttpStatus.OK);
@@ -59,7 +59,7 @@ public class TransportController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Transport transport = transportService.getTransportById(id);
                 if (transport != null) {
                     transportService.deleteTransport(id);
@@ -79,8 +79,8 @@ public class TransportController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
-                transport.setId(Long.valueOf(data.get(2)));
+            if (data.get(1).equals("ROLE_PROVIDER")) {
+                transport.setProviderid(Long.valueOf(data.get(2)));
                 transportService.addTransport(transport);
                 return new ResponseEntity<>(transport, HttpStatus.CREATED);
             } else

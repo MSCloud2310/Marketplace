@@ -43,12 +43,7 @@ public class AuthController {
 
     //VALIDATE TOKEN
     @GetMapping("/validateToken")
-<<<<<<< HEAD
-    public AuthResponse validateToken(@RequestParam String token){    
-=======
     public AuthResponse validateToken(@RequestParam String token) {
-        System.out.println("Validata TOKEN:" + token);
->>>>>>> 57db71d (Updated)
         return userService.validateToken(token);
     }
 }

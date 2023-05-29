@@ -45,8 +45,9 @@ public class LodgingController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Lodging createdLodging = lodgingService.createLodging(lodging);
+                createdLodging.setProviderid(Long.valueOf(data.get(2)));
                 return new ResponseEntity<>(createdLodging, HttpStatus.CREATED);
             }
         }
@@ -60,7 +61,7 @@ public class LodgingController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Lodging updatedLodging = lodgingService.updateLodging(id, lodging);
                 return ResponseEntity.ok(updatedLodging);
             }
@@ -74,7 +75,7 @@ public class LodgingController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Optional<Lodging> lodging = lodgingService.getLodgingById(id);
                 if (lodging.isPresent()) {
                     lodgingService.deleteLodging(id);

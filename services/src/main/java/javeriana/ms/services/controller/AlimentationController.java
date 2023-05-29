@@ -29,7 +29,7 @@ public class AlimentationController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 if (alimentationService.getAlimentationById(id) != null) {
                     Alimentation tmp = alimentationService.updateAlimentation(id, alimentation);
                     return new ResponseEntity<>(tmp, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class AlimentationController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
+            if (data.get(1).equals("ROLE_PROVIDER")) {
                 Alimentation alimentation = alimentationService.getAlimentationById(id);
                 if (alimentation != null) {
                     alimentationService.deleteAlimentation(id);
@@ -78,8 +78,8 @@ public class AlimentationController {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             authorizationHeader = authorizationHeader.replace("Bearer ", "");
             data = TokenUtils.getClaims(authorizationHeader);
-            if (data.get(1).equals("ROL_PROVEEDOR")) {
-                alimentation.setId(Long.valueOf(data.get(2)));
+            if (data.get(1).equals("ROLE_PROVIDER")) {
+                alimentation.setProviderid(Long.valueOf(data.get(2)));
                 alimentationService.addAlimentation(alimentation);
                 return new ResponseEntity<>(alimentation, HttpStatus.CREATED);
             } else

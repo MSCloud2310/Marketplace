@@ -14,8 +14,8 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 
-                registry.addMapping("/login")
-                    .allowedOrigins("http://localhost")
+                registry.addMapping("/user/**")
+                    .allowedOrigins("http:/10.43.101.168")
                     .allowedMethods("*")
                     .exposedHeaders("*");
                     

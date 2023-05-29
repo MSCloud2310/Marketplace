@@ -40,6 +40,8 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers("/login/**")
                 .permitAll()
+                .requestMatchers("/user/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
