@@ -63,6 +63,12 @@ public class TransportService {
                 }
             }
         } catch (Exception e) {
+            transport.setPickup_location(transport.getPickup_location());
+            transport.setDestination(transport.getDestination());
+            String u = url(transport);
+            if (!u.equals("")) {
+                transport.setRoute_url(u);
+            }
             System.out.print(e.toString());
         }
         transportRepository.save(transport);
@@ -115,6 +121,10 @@ public class TransportService {
             transport.setLongitude(tmp.getLongitude());
             transport.setRegion(tmp.getRegion());
             transport.setCapital(tmp.getCapital());
+            String u = url(transport);
+            if (!u.equals("")) {
+                transport.setRoute_url(u);
+            }
             transportRepository.save(transport);
             return transport;
         }

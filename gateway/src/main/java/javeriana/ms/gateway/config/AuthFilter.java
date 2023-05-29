@@ -1,15 +1,26 @@
 package javeriana.ms.gateway.config;
 
+<<<<<<< HEAD
 
 
+=======
+import javeriana.ms.gateway.dto.UserDto;
+>>>>>>> 57db71d (Updated)
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+<<<<<<< HEAD
 
 import javeriana.ms.gateway.dto.UserDto;
+=======
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
+
+import java.util.function.Consumer;
+>>>>>>> 57db71d (Updated)
 
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
@@ -27,14 +38,17 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     }
 
     public static class Config {
-
+        // Add configuration properties if needed
     }
 
-    @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
 
+<<<<<<< HEAD
             if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)){
+=======
+            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+>>>>>>> 57db71d (Updated)
                 throw new RuntimeException("Missing auth header");
             }
 
@@ -53,7 +67,11 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                     .map(userDto -> {
                         ServerHttpRequest modifiedRequest = exchange.getRequest().mutate().header("bearerToken", userDto.getToken()).build();
                         return exchange.mutate().request(modifiedRequest).build();
+<<<<<<< HEAD
                     }).flatMap(chain::filter);       
+=======
+                    }).flatMap(chain::filter);
+>>>>>>> 57db71d (Updated)
         };
     }
 }

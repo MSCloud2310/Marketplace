@@ -22,7 +22,7 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "providerid", nullable = false)
+    @Column(name = "providerid", nullable = true)
     private Long providerid;
 
     @Column(name = "name", nullable = false)

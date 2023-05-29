@@ -25,23 +25,30 @@ public class AuthController {
 
     //REGISTER CLIENT
     @PostMapping("/register/client")
-    public ResponseEntity<?> postUser(@RequestBody Client client){
+    public ResponseEntity<?> postUser(@RequestBody Client client) {
         AuthResponse clientCreated = userService.createClientUser(client);
-        if(clientCreated == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el usuario");
+        if (clientCreated == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el usuario");
         return ResponseEntity.ok(clientCreated);
     }
 
     //REGISTER PROVIDER
     @PostMapping("/register/provider")
-    public ResponseEntity<?> postProvider(@RequestBody Provider provider){
+    public ResponseEntity<?> postProvider(@RequestBody Provider provider) {
         AuthResponse providerCreated = userService.createProviderUser(provider);
-        if(providerCreated == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el usuario");
+        if (providerCreated == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el usuario");
         return ResponseEntity.ok(providerCreated);
     }
 
     //VALIDATE TOKEN
     @GetMapping("/validateToken")
+<<<<<<< HEAD
     public AuthResponse validateToken(@RequestParam String token){    
+=======
+    public AuthResponse validateToken(@RequestParam String token) {
+        System.out.println("Validata TOKEN:" + token);
+>>>>>>> 57db71d (Updated)
         return userService.validateToken(token);
     }
 }

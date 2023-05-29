@@ -53,6 +53,10 @@ public class LodgingService {
                 }
             }
         } catch (Exception e) {
+            String u = get(lodging.getCity(), lodging.getLodging_name());
+            if (!u.equals("")) {
+                lodging.setMap_point(u);
+            }
             System.out.print(e.toString());
         }
 
@@ -84,17 +88,16 @@ public class LodgingService {
         Optional<Lodging> optionalLodging = lodgingRepository.findById(id);
         if (optionalLodging.isPresent()) {
             Lodging tmp = optionalLodging.get();
-            Lodging lodgingToUpdate = optionalLodging.get();
-            lodgingToUpdate.setRooms(lodging.getRooms());
-            lodgingToUpdate.setChef(lodging.isChef());
-            lodgingToUpdate.setParking(lodging.isParking());
-            lodgingToUpdate.setLaundry(lodging.isLaundry());
-            lodgingToUpdate.setPet_friendly(lodging.isPet_friendly());
-            lodgingToUpdate.setCurrencies(tmp.getCurrencies());
-            lodgingToUpdate.setLatitude(tmp.getLatitude());
-            lodgingToUpdate.setLongitude(tmp.getLongitude());
-            lodgingToUpdate.setRegion(tmp.getRegion());
-            lodgingToUpdate.setCapital(tmp.getCapital());
+            lodging.setCurrencies(tmp.getCurrencies());
+            lodging.setLatitude(tmp.getLatitude());
+            lodging.setLongitude(tmp.getLongitude());
+            lodging.setRegion(tmp.getRegion());
+            lodging.setCapital(tmp.getCapital());
+            String u = get(lodging.getCity(), lodging.getLodging_name());
+            if (!u.equals("")) {
+                lodging.setMap_point(u);
+            }
+            lodging.setMap_point(u);
             return lodgingRepository.save(lodging);
         } else {
             return null;
