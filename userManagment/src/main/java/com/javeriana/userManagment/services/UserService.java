@@ -128,47 +128,39 @@ public class UserService {
 
   //UPDATE USER
   public Client updateClientUser(Client client) {
-      /*Optional<Client> clientTemp = clientRepository.findById(client.getId());
+      Optional<Client> clientTemp = clientRepository.findById(client.getId());
 
       if (clientTemp.isPresent()) {
-          String password = client.getPassword();
-          String encryptPassword = encrypt(password);
+        client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
+        Long clientUpdatedId = clientRepository.save(client).getId();
+        Optional<Client> clientUpdated = clientRepository.findById(clientUpdatedId);
 
-          if (encryptPassword != null) {
-              client.setPassword(encryptPassword);
-              Long clientUpdatedId = clientRepository.save(client).getId();
-              Optional<Client> clientUpdated = clientRepository.findById(clientUpdatedId);
-
-              if (clientUpdated.isPresent()) {
-                  return clientUpdated.get();
-              }
-          }
+        if (clientUpdated.isPresent()) {
+            return clientUpdated.get();
+        }
+          
       }
-*/
+
       return null;
   }
 
   public Provider updateProviderUser(Provider provider) {
-    /* Optional<Provider> providerTemp = providerRepository.findById(provider.getId());
+     Optional<Provider> providerTemp = providerRepository.findById(provider.getId());
 
       if (providerTemp.isPresent()) {
-          String password = provider.getPassword();
-          String encryptPassword = encrypt(password);
+  
+        provider.setPassword(new BCryptPasswordEncoder().encode(provider.getPassword()));
+        Long providerUpdatedId = providerRepository.save(provider).getId();
+        Optional<Provider> providerUpdated = providerRepository.findById(providerUpdatedId);
 
-          if (encryptPassword != null) {
-              provider.setPassword(encryptPassword);
-              Long providerUpdatedId = providerRepository.save(provider).getId();
-              Optional<Provider> providerUpdated = providerRepository.findById(providerUpdatedId);
-
-              if (providerUpdated.isPresent()) {
-                  return providerUpdated.get();
-              }
-          }
+        if (providerUpdated.isPresent()) {
+            return providerUpdated.get();
+        }
+          
       }
- */ 
+  
       return null;
   }
-
 
   //GET USER BY EMAIL
   public Optional<Client> getClientByEmail(String username) {
@@ -178,7 +170,6 @@ public class UserService {
   public Optional<Provider> getProviderByEmail(String username) {
       return providerRepository.findByEmail(username);
   }
-
 
   //DETELE USER
   public boolean deleteClient(Long id) {
