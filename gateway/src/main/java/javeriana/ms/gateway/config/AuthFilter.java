@@ -15,14 +15,18 @@ import javeriana.ms.gateway.dto.UserDto;
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
 
     private final WebClient.Builder webClientBuilder;
+    private final WebClient.Builder webClientBuilder;
 
     public AuthFilter(WebClient.Builder webClientBuilder) {
         super(Config.class);
         this.webClientBuilder = webClientBuilder;
+    public AuthFilter(WebClient.Builder webClientBuilder) {
+        super(Config.class);
+        this.webClientBuilder = webClientBuilder;
     }
-    
-    public static class Config{
-        
+
+    public static class Config {
+
     }
 
     @Override
@@ -36,7 +40,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
             String authToken = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
             String[] parts = authToken.split(" ");
 
-            if(parts.length != 2 || !"Bearer".equals(parts[0])){
+            if (parts.length != 2 || !"Bearer".equals(parts[0])) {
                 throw new RuntimeException("Incorrect structure");
             }
 

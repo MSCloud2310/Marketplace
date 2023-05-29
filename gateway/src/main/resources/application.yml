@@ -6,15 +6,19 @@ spring:
           uri: ${SERVICES_URL}
           predicates:
             - Path=/services/**
+
         - id: contents
           uri: ${CONTENTS_URL}
           predicates:
             - Path=/contents/**
+
         - id: users
           uri: ${USERS_URL}
           predicates:
-            - Path=/user/**
-          filters:
-            - AuthFilter
+            - Path=/auth/**
+        - id: reserve
+          uri: ${RESERVES_URL}
+          predicates:
+            - Path=/reserve/**
 
 
