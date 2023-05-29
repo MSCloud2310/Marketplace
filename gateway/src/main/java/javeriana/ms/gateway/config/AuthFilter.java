@@ -15,11 +15,12 @@ import javeriana.ms.gateway.dto.UserDto;
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
 
     private final WebClient.Builder webClientBuilder;
-    private final WebClient.Builder webClientBuilder;
 
     public AuthFilter(WebClient.Builder webClientBuilder) {
         super(Config.class);
         this.webClientBuilder = webClientBuilder;
+    }
+
     public AuthFilter(WebClient.Builder webClientBuilder) {
         super(Config.class);
         this.webClientBuilder = webClientBuilder;
