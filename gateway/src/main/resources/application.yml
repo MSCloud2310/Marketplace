@@ -14,8 +14,7 @@ spring:
           uri: ${USERS_URL}
           predicates:
             - Path=/user/**
-        - id: reserve
-          uri: ${RESERVES_URL}
-          predicates:
-            - Path=/reserve/**
+          filters:
+            - AuthFilter
+
 

@@ -48,7 +48,7 @@ public class UserService {
     Optional<Client> clientCreated = clientRepository.findById(clientTemp);
 
     if (clientCreated.isPresent()) {
-        var jwtToken = TokenUtils.createToken(clientCreated.get().getEmail());
+        var jwtToken = TokenUtils.createToken(clientCreated.get().getEmail(), clientCreated.get().getRole().toString(), clientCreated.get().getId());
         return AuthResponse.builder().token(jwtToken).build();
     }
     
@@ -68,7 +68,7 @@ public class UserService {
     Optional<Provider> providerCreated = providerRepository.findById(providerTemp);
 
     if (providerCreated.isPresent()) {
-        var jwtToken = TokenUtils.createToken(providerCreated.get().getEmail());
+        var jwtToken = TokenUtils.createToken(providerCreated.get().getEmail(), providerCreated.get().getRole().toString(), providerCreated.get().getId());
         return AuthResponse.builder().token(jwtToken).build();
     }
 
@@ -81,12 +81,12 @@ public class UserService {
 
     if(this.getClientByEmail(email).isPresent()){
         User userOptional = this.getClientByEmail(email).get();
-        return new AuthResponse(TokenUtils.createToken(userOptional.getEmail()));
+        return new AuthResponse(TokenUtils.createToken(userOptional.getEmail(), userOptional.getRole().toString(), userOptional.getId()));
     }
 
     else if(this.getProviderByEmail(email).isPresent()){
         User userOptional = this.getProviderByEmail(email).get();
-        return new AuthResponse(TokenUtils.createToken(userOptional.getEmail()));
+        return new AuthResponse(TokenUtils.createToken(userOptional.getEmail(), userOptional.getRole().toString(), userOptional.getId()));
     }
     
     else {

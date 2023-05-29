@@ -17,11 +17,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         if(userService.getClientByEmail(email).isPresent()){
-            return new UserDetailsImpl(userService.getClientByEmail(email).get().getEmail(), userService.getClientByEmail(email).get().getPassword());
+            return new UserDetailsImpl(userService.getClientByEmail(email).get().getEmail(), userService.getClientByEmail(email).get().getPassword(), userService.getClientByEmail(email).get().getRole().toString(), userService.getClientByEmail(email).get().getId());
         }
 
         else if(userService.getProviderByEmail(email).isPresent()){
-            return new UserDetailsImpl(userService.getProviderByEmail(email).get().getEmail(), userService.getProviderByEmail(email).get().getPassword());
+            return new UserDetailsImpl(userService.getProviderByEmail(email).get().getEmail(), userService.getProviderByEmail(email).get().getPassword(), userService.getProviderByEmail(email).get().getRole().toString(), userService.getProviderByEmail(email).get().getId());
         }
 
         else{

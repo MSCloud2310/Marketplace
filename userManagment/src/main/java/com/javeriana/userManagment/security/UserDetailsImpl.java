@@ -12,6 +12,9 @@ public class UserDetailsImpl implements UserDetails{
 
     private final String email;
     private final String password;
+    private final String role;
+    private final Long id;
+    
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -26,6 +29,14 @@ public class UserDetailsImpl implements UserDetails{
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public String getRole(){
+        return role;
+    }
+
+    public Long getId(){
+        return id;
     }
 
     @Override
